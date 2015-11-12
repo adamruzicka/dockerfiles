@@ -28,3 +28,15 @@ docker-compose build
 docker-compose up -d
 ```
 
+## Using interactive pry session:
+```shell
+# Attach to the container using Docker
+docker attach $(docker-compose ps -q foreman)
+
+# OR
+# Stop the foreman container
+docker-compose stop foreman
+
+# Start and attach to it using Docker
+docker start -ai $(docker-compose ps -q foreman)
+```

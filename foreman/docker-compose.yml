@@ -14,6 +14,8 @@ postgres:
     POSTGRES_USER: foreman
 proxy:
   build: proxy
+  tty: true
+  stdin_open: true
   extra_hosts:
     # Docker host
     - "master.example.com:192.168.122.1"
@@ -31,6 +33,8 @@ proxy:
   working_dir: /data/smart-proxy
 foreman:
   build: foreman
+  tty: true
+  stdin_open: true
   extra_hosts:
     - "master.example.com:192.168.122.1"
   ports:
