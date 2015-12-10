@@ -1,0 +1,5 @@
+#!/bin/sh
+echo "* Generating missing ssh server keys"
+ssh-keygen -A
+echo "* Starting ssh daemon"
+exec /usr/sbin/sshd -D
