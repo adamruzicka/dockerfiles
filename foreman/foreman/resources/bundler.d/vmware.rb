@@ -1,3 +1,3 @@
 group :vmware do
-  gem "rbvmomi", '~> 1.8'
+  gem 'fog-vsphere', '>= 0.6.2'
 end

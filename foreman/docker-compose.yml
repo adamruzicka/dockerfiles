@@ -26,7 +26,7 @@ proxy:
     - foreman
   volumes:
     # Mount the directory which contains smart-proxy directory with its sources
-    - /home/aruzicka/Documents/redhat:/data
+    - /home/aruzicka/git:/data
     # Mount the directory with ssh keys for the proxy
     - /home/aruzicka/.ssh:/home/foreman/.ssh
   hostname: smart-proxy
@@ -44,6 +44,6 @@ foreman:
     - postgres
   volumes:
     # Mount the directory which contains forman directory with its sources
-    - /home/aruzicka/Documents/redhat:/data
+    - /home/aruzicka/git:/data
   user: foreman
   working_dir: /data/foreman
