@@ -1,0 +1,23 @@
+[Unit]
+Description=cjdns: routing engine designed for security, scalability, speed and ease of use
+Wants=network.target docker.service
+After=network.target docker.service
+
+[Service]
+EnvironmentFile=/etc/docker-cjdns
+ExecStartPre=-/usr/bin/docker rm $CONTAINER_NAME
+ExecStartPre=/sbin/ip route add fc00::/8 via $CONTAINER_IPV6
+ExecStart=/usr/bin/docker run --cap-add NET_ADMIN \
+	--device /dev/net/tun \
+	--sysctl net.ipv6.conf.all.forwarding=1 \
+	--name $CONTAINER_NAME \
+	--hostname $CONTAINER_NAME \
+	--ip6 $CONTAINER_IPV6 \
+	--network $CONTAINER_NETWORK \
+	--volume /etc/cjdroute.conf:/etc/cjdroute.conf \
+	cjdns:latest
+ExecStop=/usr/bin/docker stop $CONTAINER_NAME
+ExecStopPost=/sbin/ip route del fc00::/8 via $CONTAINER_IPV6
+
+[Install]
+WantedBy=multi-user.target
