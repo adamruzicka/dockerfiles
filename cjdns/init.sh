@@ -1,5 +1,9 @@
 #!/bin/sh
-echo "Setting up iptables"
-ip6tables -t nat -I POSTROUTING -o tun0 -j MASQUERADE
+for hook in /hooks/*; do
+	if [ -e "$hook" ]; then
+		echo "* Executing hook $hook"
+		$hook
+	fi
+done
 echo "Starting cjdns"
 cjdroute --nobg < /etc/cjdroute.conf
